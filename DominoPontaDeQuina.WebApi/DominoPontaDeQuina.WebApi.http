@@ -1,0 +1,37 @@
+@host = http://localhost:5080
+@partidaId = 00000000-0000-0000-0000-000000000000
+@jogadorId = 00000000-0000-0000-0000-000000000000
+
+### Iniciar uma nova partida
+POST {{host}}/api/partidas
+Content-Type: application/json
+
+{
+  "pontuacaoAlvo": 50
+}
+
+### Consultar o histórico de partidas
+GET {{host}}/api/partidas
+
+### Verificar o status de uma partida
+GET {{host}}/api/partidas/{{partidaId}}
+
+### Registrar um jogador na partida
+POST {{host}}/api/partidas/{{partidaId}}/jogadores
+Content-Type: application/json
+
+{
+  "nome": "Felipe",
+  "usuarioId": null
+}
+
+### Registrar um lance na partida
+POST {{host}}/api/partidas/{{partidaId}}/lances
+Content-Type: application/json
+
+{
+  "jogadorId": "{{jogadorId}}"
+}
+
+### Consultar o ranking
+GET {{host}}/api/ranking

@@ -7,6 +7,7 @@ Projeto de implementação das regras do jogo Dominó Ponta de Quina, organizado
 - `DominoPontaDeQuina.Core`: regras de negócio, modelos, interfaces e enums do jogo.
 - `DominoPontaDeQuina.Domain`: entidades persistentes e relacionamentos do domínio.
 - `DominoPontaDeQuina.Infrastructure`: persistência com Entity Framework Core e mapeamentos Fluent API.
+- `DominoPontaDeQuina.WebApi`: Web API ASP.NET Core que expõe as operações da camada de aplicação.
 - `DominoPontaDeQuina.Migrations`: projeto independente para migrations do banco de dados.
 - `DominoPontaDeQuina.Tests`: testes automatizados do domínio.
 
