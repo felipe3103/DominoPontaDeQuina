@@ -42,6 +42,7 @@ public sealed class ApiExceptionHandler(
     static (int? Status, string? Titulo) Mapear(Exception exception) => exception switch
     {
         KeyNotFoundException => (StatusCodes.Status404NotFound, "Recurso não encontrado."),
+        UnauthorizedAccessException => (StatusCodes.Status401Unauthorized, "Credenciais inválidas."),
         ArgumentException => (StatusCodes.Status400BadRequest, "Requisição inválida."),
         InvalidOperationException => (StatusCodes.Status409Conflict, "Operação não permitida no estado atual."),
         _ => (null, null)

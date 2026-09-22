@@ -1,6 +1,8 @@
 using DominoPontaDeQuina.Domain.Repositories;
 using DominoPontaDeQuina.Infrastructure.Persistence;
 using DominoPontaDeQuina.Infrastructure.Persistence.Repositories;
+using DominoPontaDeQuina.Application.Security;
+using DominoPontaDeQuina.Infrastructure.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,6 +25,21 @@ public static class DependencyInjection
         services.AddScoped<IParticipacaoRepository, ParticipacaoRepository>();
         services.AddScoped<ILanceRepository, LanceRepository>();
         services.AddScoped<IRankingRepository, RankingRepository>();
+        services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+        return services;
+    }
+
+    /// <summary>Adiciona os serviços de segurança usados na autenticação JWT.</summary>
+    /// <param name="services">Contêiner de serviços.</param>
+    /// <returns>O contêiner para encadeamento.</returns>
+    /// <remarks>
+    /// As opções vêm de <see cref="OpcoesJwt"/>, que deve ser configurado pelo host
+    /// (normalmente ligado à seção <c>Jwt</c> do <c>appsettings.json</c>).
+    /// </remarks>
+    public static IServiceCollection AddDominoSeguranca(this IServiceCollection services)
+    {
+        services.AddSingleton<IHashDeSenha, HashDeSenhaPbkdf2>();
+        services.AddSingleton<IGeradorDeTokenJwt, GeradorDeTokenJwt>();
         return services;
     }
 }

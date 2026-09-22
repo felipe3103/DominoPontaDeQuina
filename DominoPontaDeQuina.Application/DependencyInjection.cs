@@ -12,6 +12,7 @@ public static class DependencyInjection
     public static IServiceCollection AddDominoApplication(this IServiceCollection services)
     {
         services.AddScoped<IPartidaService, PartidaService>();
+        services.AddScoped<IAutenticacaoService, AutenticacaoService>();
         return services;
     }
 }

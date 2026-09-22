@@ -1,5 +1,6 @@
 using DominoPontaDeQuina.Application.Services;
 using DominoPontaDeQuina.WebApi.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DominoPontaDeQuina.WebApi.Controllers;
@@ -8,6 +9,8 @@ namespace DominoPontaDeQuina.WebApi.Controllers;
 [ApiController]
 [Route("api/partidas")]
 [Produces("application/json")]
+[Authorize]
+[ProducesResponseType(StatusCodes.Status401Unauthorized)]
 public sealed class PartidasController(IPartidaService partidas) : ControllerBase
 {
     /// <summary>Inicia uma nova partida.</summary>

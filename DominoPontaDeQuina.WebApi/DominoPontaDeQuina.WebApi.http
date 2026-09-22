@@ -2,8 +2,34 @@
 @partidaId = 00000000-0000-0000-0000-000000000000
 @jogadorId = 00000000-0000-0000-0000-000000000000
 
+### Cadastrar uma conta
+POST {{host}}/api/auth/registrar
+Content-Type: application/json
+
+{
+  "email": "felipe@exemplo.com",
+  "senha": "senhaSegura123"
+}
+
+### Autenticar e guardar o token da resposta
+# @name login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "felipe@exemplo.com",
+  "senha": "senhaSegura123"
+}
+
+@token = {{login.response.body.accessToken}}
+
+### Conferir a conta do token
+GET {{host}}/api/auth/eu
+Authorization: Bearer {{token}}
+
 ### Iniciar uma nova partida
 POST {{host}}/api/partidas
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -12,12 +38,15 @@ Content-Type: application/json
 
 ### Consultar o histórico de partidas
 GET {{host}}/api/partidas
+Authorization: Bearer {{token}}
 
 ### Verificar o status de uma partida
 GET {{host}}/api/partidas/{{partidaId}}
+Authorization: Bearer {{token}}
 
 ### Registrar um jogador na partida
 POST {{host}}/api/partidas/{{partidaId}}/jogadores
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -27,11 +56,15 @@ Content-Type: application/json
 
 ### Registrar um lance na partida
 POST {{host}}/api/partidas/{{partidaId}}/lances
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "jogadorId": "{{jogadorId}}"
 }
 
-### Consultar o ranking
+### Consultar o ranking (público, não exige token)
 GET {{host}}/api/ranking
+
+### Sem token, os endpoints de partida devolvem 401
+GET {{host}}/api/partidas

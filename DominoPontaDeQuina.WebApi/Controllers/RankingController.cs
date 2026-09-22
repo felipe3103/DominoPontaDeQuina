@@ -1,5 +1,6 @@
 using DominoPontaDeQuina.Application.Services;
 using DominoPontaDeQuina.WebApi.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DominoPontaDeQuina.WebApi.Controllers;
@@ -8,6 +9,8 @@ namespace DominoPontaDeQuina.WebApi.Controllers;
 [ApiController]
 [Route("api/ranking")]
 [Produces("application/json")]
+// O placar é a única leitura pública da API; todo o resto exige token.
+[AllowAnonymous]
 public sealed class RankingController(IPartidaService partidas) : ControllerBase
 {
     /// <summary>Consulta o ranking de jogadores por vitórias.</summary>
